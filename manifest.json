@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "Conversor SINapse",
+  "version": "22.0.0",
+  "description": "Conversor de solicitações do SINapse -> Whatsapp.",
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Executar conversor SINapse -> Whatsapp",
+    "default_icon": {
+      "16": "icon.png",
+      "32": "icon.png",
+      "48": "icon.png",
+      "128": "icon.png"
+    }
+  },
+  "icons": {
+    "16": "icon.png",
+    "32": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  }
+}
