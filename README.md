@@ -1,8 +1,19 @@
 Extensão e versão bookmarklet, direto do navegador, universal!
 Chega de usar o excel pra fazer o que ele não deveria fazer!
 
-Copie o texto completo do bookmarklet.md e adicione como favorito no navegador.
-Clique nele e pronto! MÁGICA!
+Copie o texto completo da [Versão Bookmarklet](/bookmarklet-version.md) e adicione como favorito no navegador.
+
+Clique no favorito ao abrir o detalhe da solicitação e pronto! MÁGICA!
 
 Código totalmente aberto GLP 2.0, esteja livre para editar, ler, aprender, experimentar, e jogar fora, código não pode ser usado para fins comerciais.
-Yuri Henrique Silva Ferreira
+
+Criado por Yuri Henrique Silva Ferreira, nenhum dado privilegiado foi utilizado para a construção deste string parser, todos os dados utilizados na conversão da mensagem são reativos com os dados apresentados na tela no instante da execução do javascript e/ou extensão, criado para ser utilizado __somente no SINapse__ do ONS, o funcionamento ou não em outros sites/serviços não indica que o mesmo foi projetado com tal intuito.
+
+Software distribuído "as is" ou "como está", sem garantias de funcionamento, não responsabilizando o criador por possíveis danos morais, físicos, ou virtuais devido à utilização do mesmo.
+> [!NOTE]
+> Se você ou alguém se sentiu moralmente agredido pelo conteúdo contido neste software, favor entrar em contato pelo "Issues" neste repositório.
+> 
+> Sinta-se livre para fazer seu fork e editar como bem entender, assim como contribuir.
+
+> [!CAUTION]
+> __Quem vota 13 tem problemas psicossociais graves, se conhece alguém neste estado físico e/ou mental, leve ao CAPS mais próximo na sua cidade.__
