@@ -5,6 +5,7 @@
             .replace(/\s+/g, ' ')
             .trim();
 
+
     const vis = e => {
         if (!e) return false;
 
@@ -19,11 +20,14 @@
         );
     };
 
+
     const copiar = async e => {
         try {
             await navigator.clipboard.writeText(e);
             return true;
+
         } catch (t) {
+
             try {
                 const r = document.createElement('textarea');
 
@@ -51,6 +55,7 @@
         }
     };
 
+
     const aviso = (e, t = false) => {
 
         const r = document.createElement('div');
@@ -75,6 +80,7 @@
 
         setTimeout(() => r.remove(), 2500);
     };
+
 
     const pedir = e =>
         new Promise(t => {
@@ -151,6 +157,7 @@
                     if (e) {
                         t(e.replace(',', '.'));
                         r.remove();
+
                     } else {
                         a.focus();
                         a.style.borderColor = '#8B0000';
@@ -159,6 +166,12 @@
             });
         });
 
+
+    /*
+     * =========================================================
+     * LOCALIZAÇÃO DA SOLICITAÇÃO
+     * =========================================================
+     */
 
     const headers = [
         ...document.querySelectorAll('#detalhe_solicitacao__modal')
@@ -177,6 +190,7 @@
 
     const detalhe = header.closest('.detalhe');
 
+
     if (!detalhe) {
         return aviso(
             'Encontrei o cabeçalho, mas não encontrei o bloco .detalhe.',
@@ -187,12 +201,15 @@
 
     const componente = header.parentElement;
 
+
     const mensagemEl =
         componente.querySelector('[id$="__mensagem"]') ||
         componente.querySelector('.mensagem-items span');
 
+
     const motivoEl =
         componente.querySelector('[id$="__motivo"]');
+
 
     const infoEl =
         componente.querySelector('[id$="__adicional"]');
@@ -211,6 +228,12 @@
     }
 
 
+    /*
+     * =========================================================
+     * IDENTIFICAÇÃO DO PARQUE
+     * =========================================================
+     */
+
     let usina =
         (mensagem.split('|')[0] || '')
             .trim()
@@ -218,6 +241,39 @@
             .trim()
             .toUpperCase();
 
+
+    /*
+     * Vista Alegre possui um nome operacional diferente
+     * do nome utilizado no título da mensagem.
+     */
+
+    if (usina === 'VISTA ALEGRE - JANAÚBA') {
+        usina = 'VISTA ALEGRE';
+    }
+
+
+    /*
+     * Lar do Sol possui título personalizado.
+     */
+
+    const larDoSol =
+        usina === 'LAR DO SOL';
+
+
+    if (larDoSol) {
+        usina = 'LAR DO SOL/CASABLANCA';
+    }
+
+
+    /*
+     * =========================================================
+     * REGRA DE TÍTULOS
+     * =========================================================
+     *
+     * Estes parques NÃO recebem cabeçalho.
+     *
+     * Xangri-lá permanece com título.
+     */
 
     const removerUsina = [
         'MALHADINHA 1',
@@ -230,20 +286,33 @@
     ];
 
 
-    if (usina === 'VISTA ALEGRE - JANAÚBA') {
-        usina = 'VISTA ALEGRE';
-    }
+    /*
+     * Como Lar do Sol foi renomeado acima, ele naturalmente
+     * continua fora da lista de remoção e recebe título.
+     *
+     * Xangri-lá também não está na lista e recebe título.
+     */
+
+    const cacimbas =
+        usina === 'CACIMBAS';
 
 
-    const cacimbas = usina === 'CACIMBAS';
-    const solCerrado = usina === 'SOL DO CERRADO';
+    const solCerrado =
+        usina === 'SOL DO CERRADO';
+
 
     const mostrarUsina =
         !removerUsina.includes(usina);
 
 
+    /*
+     * =========================================================
+     * TIPO DA SOLICITAÇÃO
+     * =========================================================
+     */
+
     const liberacao =
-        /^Malhadinha\s*1\s*\|\s*Liberação Total de Geração Eólica$/i
+        /\|\s*Liberação Total de Geração\b/i
             .test(mensagem);
 
 
@@ -251,6 +320,12 @@
         /Maximizar Absorção de Potência Reativa,\s*Mantendo o Modo de Controle\./i
             .test(mensagem);
 
+
+    /*
+     * =========================================================
+     * VALORES DE POTÊNCIA
+     * =========================================================
+     */
 
     const anterior =
         mensagem.match(
@@ -265,6 +340,12 @@
         )?.[1]
             ?.replace(',', '.');
 
+
+    /*
+     * =========================================================
+     * CHAT
+     * =========================================================
+     */
 
     const container = detalhe.parentElement;
 
@@ -303,6 +384,12 @@
     }
 
 
+    /*
+     * =========================================================
+     * REMETENTE
+     * =========================================================
+     */
+
     const sender =
         t(criada.querySelector('.sender'));
 
@@ -335,17 +422,44 @@
         sm[3].replace(':', 'h') + 'min';
 
 
+    /*
+     * =========================================================
+     * CONVERSÃO
+     * =========================================================
+     */
+
     (async () => {
 
         let resultado = '';
 
 
+        /*
+         * -----------------------------------------------------
+         * LIBERAÇÃO DE POTÊNCIA ATIVA
+         * -----------------------------------------------------
+         *
+         * A liberação agora respeita a mesma regra de título
+         * utilizada pelas solicitações normais.
+         */
+
         if (liberacao) {
 
-            resultado =
+            if (mostrarUsina) {
+                resultado += `*${usina}*\n`;
+            }
+
+
+            resultado +=
                 `Às ${hora} ${centro} (${nome}) solicita o *FIM* da restrição de potência ativa.`;
 
         }
+
+
+        /*
+         * -----------------------------------------------------
+         * ABSORÇÃO DE POTÊNCIA REATIVA
+         * -----------------------------------------------------
+         */
 
         else if (absorcaoReativa) {
 
@@ -353,10 +467,18 @@
                 resultado += `*${usina}*\n`;
             }
 
+
             resultado +=
                 `Às ${hora} ${centro} (${nome}) solicita máxima absorção de potência reativa.`;
 
         }
+
+
+        /*
+         * -----------------------------------------------------
+         * RESTRIÇÃO DE POTÊNCIA ATIVA
+         * -----------------------------------------------------
+         */
 
         else {
 
@@ -368,10 +490,17 @@
             }
 
 
+            /*
+             * -------------------------------------------------
+             * SOL DO CERRADO
+             * -------------------------------------------------
+             */
+
             if (solCerrado) {
 
                 const gerAnterior =
                     await pedir('Geração anterior');
+
 
                 const gerAtual =
                     await pedir('Geração atual');
@@ -387,6 +516,13 @@ Informações antes da Restrição:
 Motivo: ${motivo || 'Não informado'}`;
 
             }
+
+
+            /*
+             * -------------------------------------------------
+             * CACIMBAS
+             * -------------------------------------------------
+             */
 
             else if (cacimbas) {
 
@@ -406,6 +542,13 @@ Velocidade do vento: ${vento.replace('.', ',')} m/s
 Motivo: ${motivo || 'Não informado'}`;
 
             }
+
+
+            /*
+             * -------------------------------------------------
+             * MODELO PADRÃO
+             * -------------------------------------------------
+             */
 
             else {
 
@@ -428,15 +571,31 @@ Motivo: ${motivo || 'Não informado'}`;
         }
 
 
+        /*
+         * =====================================================
+         * INFORMAÇÃO ADICIONAL
+         * =====================================================
+         *
+         * Sol do Cerrado também pode possuir informação
+         * adicional, que deve aparecer ao final.
+         */
+
         if (
             informacao &&
             !liberacao &&
             solCerrado
         ) {
+
             resultado +=
                 `\nInformação: ${informacao}`;
         }
 
+
+        /*
+         * =====================================================
+         * COPIAR
+         * =====================================================
+         */
 
         const ok =
             await copiar(resultado);
