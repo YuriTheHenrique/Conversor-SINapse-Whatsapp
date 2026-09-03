@@ -2,7 +2,8 @@ Extensão e versão bookmarklet, direto do navegador, universal!
 Chega de usar o excel pra fazer o que ele não deveria fazer!
 Versão extensão está desatualizada, será lançada em breve na loja de extensões.
 
-Copie o texto completo da [Versão Bookmarklet](/bookmarklet-version.md) e adicione como favorito no navegador.
+Copiar todo o texto de [Versão Bookmarklet](/bookmarklet-version.md) (CTRL+A) + (CTRL+V), adicionar novo favorito no navegador, e inserir o texto.
+Ao abrir o SINapse, clicar no favorito.
 
 Clique no favorito ao abrir o detalhe da solicitação e pronto! MÁGICA!
 
