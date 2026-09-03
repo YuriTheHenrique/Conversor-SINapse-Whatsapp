@@ -1,5 +1,6 @@
 Extensão e versão bookmarklet, direto do navegador, universal!
 Chega de usar o excel pra fazer o que ele não deveria fazer!
+Versão extensão está desatualizada, será lançada em breve na loja de extensões.
 
 Copie o texto completo da [Versão Bookmarklet](/bookmarklet-version.md) e adicione como favorito no navegador.
 
@@ -14,6 +15,3 @@ Software distribuído "as is" ou "como está", sem garantias de funcionamento, n
 > Se você ou alguém se sentiu moralmente agredido pelo conteúdo contido neste software, favor entrar em contato pelo "Issues" neste repositório.
 > 
 > Sinta-se livre para fazer seu fork e editar como bem entender, assim como contribuir.
-
-> [!CAUTION]
-> __Quem vota 13 tem problemas psicossociais graves, se conhece alguém neste estado físico e/ou mental, leve ao CAPS mais próximo na sua cidade.__
